@@ -153,7 +153,7 @@ namespace ChessV.Games.Abstract
 			AddPieceType( Queen = new Queen( "Queen", "Q", 1250, 1350 ) );
 			AddPieceType( Rook = new Rook( "Rook", "R", 700, 750 ) );
 			AddPieceType( Bishop = new Bishop( "Bishop", "B", 500, 500 ) );
-			AddPieceType( Knight = new Knight( "Knight", "N", 250, 250 ) );
+			AddPieceType( Knight = new Knight( "Knight", "N", 225, 225 ) );
 		}
 	}
 }

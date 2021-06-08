@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{68BAC989-4E0A-4647-9A4F-111C7EA53354}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChessV.Utilities</RootNamespace>
     <AssemblyName>ChessV.Utilities</AssemblyName>

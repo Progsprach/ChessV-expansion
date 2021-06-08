@@ -294,4 +294,59 @@ namespace ChessV.Games
 		}
 	}
 	#endregion
+
+	#region Ferz Dabbabah
+	[PieceType("Ferz Dabbabah", "Miscellaneous Compounds")]
+	public class FerzDabbabah : PieceType
+	{
+		public FerzDabbabah(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Ferz Dabbabah", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			Dabbabah.AddMoves(type);
+			Ferz.AddMoves(type);
+		}
+	}
+	#endregion
+
+	#region Elephant General
+	[PieceType("Elephant General", "Miscellaneous Compounds")]
+	public class ElephantGeneral : PieceType
+	{
+		public ElephantGeneral(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Elephant General", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			King.AddMoves(type);
+			Elephant.AddMoves(type);
+		}
+	}
+	#endregion
+
+	#region Camel Zebra Knight
+	[PieceType("Camel Zebra Knight", "Miscellaneous Compounds")]
+	public class CamelZebraKnight : PieceType
+	{
+		public CamelZebraKnight(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Camel Zebra Knight", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			Camel.AddMoves(type);
+			Zebra.AddMoves(type);
+			Knight.AddMoves(type);
+		}
+	}
+	#endregion
 }

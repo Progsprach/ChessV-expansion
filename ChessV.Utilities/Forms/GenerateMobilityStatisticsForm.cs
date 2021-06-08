@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using System.Windows.Forms;
+using ChessV.Games;
 
 namespace ChessV.Utilities
 {
@@ -50,6 +51,8 @@ namespace ChessV.Utilities
 			addPieceType( typeof(Rook), "R" );
 			addPieceType( typeof(Bishop), "B" );
 			addPieceType( typeof(Knight), "N" );
+			addPieceType(typeof(CamelZebraKnight), "C");
+/*
 			addPieceType( typeof(Amazon), "QN" );
 			addPieceType( typeof(Chancellor), "RN" );
 			addPieceType( typeof(Archbishop), "BN" );
@@ -66,9 +69,9 @@ namespace ChessV.Utilities
 			addPieceType( typeof(NarrowKnight), "fbNF" );
 			addPieceType( typeof(ChargingRook), "frlRbK" );
 			addPieceType( typeof(ChargingKnight), "fhNrlbK" );
-			addPieceType( typeof(Colonel), "fhNfrlRbK" );
+			addPieceType( typeof(Colonel), "fhNfrlRbK" ); */
 
-			ChessV.Games.Abstract.UndefinedGame game = new Games.Abstract.UndefinedGame( 2, nFiles, nRanks );
+			ChessV.Games.Abstract.UndefinedGame game = new Games.Abstract.UndefinedGame(nFiles, nRanks );
 			game.Initialize( new GameAttribute( "", typeof(Geometry.Rectangular), nFiles, nRanks ), null, null );
 
 			StringBuilder str = new StringBuilder();
