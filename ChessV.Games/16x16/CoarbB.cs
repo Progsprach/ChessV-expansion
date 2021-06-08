@@ -23,7 +23,7 @@ some reason you need a copy, please visit <http://www.gnu.org/licenses/>.
 namespace ChessV.Games
 {
 	[Game("Chess on a Really Big Board", typeof(Geometry.Rectangular), 16, 16,
-		  Invented = "2100",
+		  Invented = "1996",
 		  InventedBy = "Ralph Betza",
 		  Tags = "Chess Variant")]
 	[Appearance(ColorScheme = "Surrealistic Summer", PieceSet="Abstract", Player2Color="255,0,0")]
@@ -53,6 +53,7 @@ namespace ChessV.Games
 			PromotionRule.Value = "Standard";
 			PawnMultipleMove.Value = "@2(2,3,4,5,6)";
 			EnPassant = true;
+			DeduplicateMoves = true;
 		}
 		#endregion
 
