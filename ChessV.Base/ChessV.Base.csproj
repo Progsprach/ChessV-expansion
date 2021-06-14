@@ -144,6 +144,7 @@
     <Compile Include="Exceptions\GameInitializationException.cs" />
     <Compile Include="GenericPiece.cs" />
     <Compile Include="MaterialHashEntry.cs" />
+    <Compile Include="DynamicMoveCapability.cs" />
     <Compile Include="Search.cs" />
     <Compile Include="Hashtable.cs" />
     <Compile Include="InternalEngine.cs" />

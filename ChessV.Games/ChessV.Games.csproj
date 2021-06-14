@@ -100,6 +100,7 @@
     <Compile Include="12x8\KingsCourt.cs" />
     <Compile Include="16x16\CoarbB.cs" />
     <Compile Include="8x8\BerolinaChess.cs" />
+    <Compile Include="8x8\DemiChessWithDifferentArmies.cs" />
     <Compile Include="8x8\CylindricalChess.cs" />
     <Compile Include="8x8\DoublemoveChess.cs" />
     <Compile Include="8x8\FileSharingChess.cs" />
@@ -179,15 +180,18 @@
     <Compile Include="Pieces\ChessMissingCompounds.cs" />
     <Compile Include="Pieces\CwDA.cs" />
     <Compile Include="Pieces\Diamond\DiamondPawn.cs" />
+    <Compile Include="Pieces\Dynamic.cs" />
     <Compile Include="Pieces\Miscellaneous.cs" />
     <Compile Include="Pieces\MiscellaneousCompounds.cs" />
     <Compile Include="Pieces\MovementAtoms.cs" />
     <Compile Include="Pieces\MultiPath.cs" />
+    <Compile Include="Pieces\DCwDA.cs" />
     <Compile Include="Pieces\OdinsRune\ForestOx.cs" />
     <Compile Include="Pieces\OdinsRune\OdinKing.cs" />
     <Compile Include="Pieces\OdinsRune\OdinPawn.cs" />
     <Compile Include="Pieces\OdinsRune\Valkyrie.cs" />
     <Compile Include="Pieces\Shogi.cs" />
+    <Compile Include="PieceTypePropertyAttributes\DynamicMoveAttribute.cs" />
     <Compile Include="PieceTypePropertyAttributes\CaptureByAdvanceAttribute.cs" />
     <Compile Include="PieceTypePropertyAttributes\CombatantAttribute.cs" />
     <Compile Include="PieceTypePropertyAttributes\ImpotentAttribute.cs" />
@@ -228,6 +232,7 @@
     <Compile Include="Rules\OptionalPromotion.cs" />
     <Compile Include="Rules\PieceChangeTypeRule.cs" />
     <Compile Include="Rules\PieceLocationRestrictionRule.cs" />
+    <Compile Include="Rules\DynamicIsSquareAttackedHandler.cs" />
     <Compile Include="Rules\PromoteByReplacementRule.cs" />
     <Compile Include="Rules\RepetitionDrawRule.cs" />
     <Compile Include="Rules\Symmetric\BishopConversionRule.cs" />

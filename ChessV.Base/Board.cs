@@ -646,6 +646,12 @@ namespace ChessV
 			MaterialHashCode = MaterialHashCode ^ piece.PieceType.GetMaterialHashKey( piece.Player, piece.PieceType.SliceLookup[square], pieceCountByType[piece.Player, piece.TypeNumber] );
 		}
 		#endregion
+		#region
+		public Piece GetSquare(int square)
+        {
+			return squares[square];
+        }
+		#endregion
 
 		#region RecalculateMaterialEvaluations
 		public void RecalculateMaterialEvaluations()

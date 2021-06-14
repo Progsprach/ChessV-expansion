@@ -116,6 +116,7 @@ namespace ChessV.Games.Abstract
 		#region AddRules
 		public override void AddRules()
 		{
+			base.AddRules();
 			// *** PROMOTION *** //
 			if( PromotionRule.Value == "Standard" )
 			{

@@ -150,10 +150,10 @@ namespace ChessV.Games.Abstract
 
 		public void AddChessPieceTypes()
 		{
-			AddPieceType( Queen = new Queen( "Queen", "Q", 1250, 1350 ) );
-			AddPieceType( Rook = new Rook( "Rook", "R", 700, 750 ) );
-			AddPieceType( Bishop = new Bishop( "Bishop", "B", 500, 500 ) );
-			AddPieceType( Knight = new Knight( "Knight", "N", 225, 225 ) );
+			AddPieceType( Queen = new Queen( "Queen", "Q", 1400, 1500 ) );
+			AddPieceType( Rook = new Rook( "Rook", "R", 800, 850 ) );
+			AddPieceType( Bishop = new Bishop( "Bishop", "B", 550, 550 ) );
+			AddPieceType( Knight = new Knight( "Knight", "N", 250, 250 ) );
 		}
 	}
 }

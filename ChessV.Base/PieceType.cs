@@ -25,7 +25,7 @@ using System.Reflection;
 namespace ChessV
 {
 	public delegate bool CustomMoveGenerationHandler( PieceType pieceType, Piece piece, MoveList moveList, bool capturesOnly );
-
+	
 	public class PieceType: ExObject
 	{
 		// *** CONSTANTS *** //
@@ -65,7 +65,7 @@ namespace ChessV
 		public bool IsSliced { get; protected set; }
 		public int NumSlices { get; private set; }
 		public int[] SliceLookup { get; private set; }
-
+		public DynamicMoveCapability DNM;
 		public CustomMoveGenerationHandler CustomMoveGenerator { get; set; }
 
 		public int NumMoveCapabilities
@@ -152,7 +152,7 @@ namespace ChessV
 
 			//	find this piece type in the Game's index
 			TypeNumber = game.GetPieceTypeNumber( this );
-
+			if (DNM!=null) { DNM.Initialize(game); }
 			//	initialize all move capabilities
 			for( int x = 0; x < nMoveCapabilities; x++ )
 			{
