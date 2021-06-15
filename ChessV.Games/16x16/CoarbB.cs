@@ -26,7 +26,7 @@ namespace ChessV.Games
 		  Invented = "1996",
 		  InventedBy = "Ralph Betza",
 		  Tags = "Chess Variant")]
-	[Appearance(PieceSet="Standard")]
+	[Appearance(ColorScheme = "Orchid",PieceSet ="Standard")]
 	public class CoarbB: Abstract.Generic16x16
 	{
 		// *** PIECE TYPES *** //
