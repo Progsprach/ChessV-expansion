@@ -349,4 +349,41 @@ namespace ChessV.Games
 		}
 	}
 	#endregion
+
+	#region Wazir Dabbabahrider
+	[PieceType("Wazir Dabbahrider", "Miscellaneous Compounds")]
+	public class WazirDabbabahrider : PieceType
+	{
+		public WazirDabbabahrider(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Wazir Dabbabahrider", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			Wazir.AddMoves(type);
+			Dabbabahrider.AddMoves(type);
+		}
+	}
+	#endregion
+
+	#region Duck
+	[PieceType("Duck", "Miscellaneous Compounds")]
+	public class Duck : PieceType
+	{
+		public Duck(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Wazir Dabbabahrider", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			Lion.AddMoves(type);
+			Trifil.AddMoves(type);
+		}
+	}
+	#endregion
+
 }

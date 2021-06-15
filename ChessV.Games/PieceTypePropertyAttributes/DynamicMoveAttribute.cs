@@ -23,7 +23,7 @@ using System.Collections.Generic;
 
 namespace ChessV.Games
 {
-	public class DynamicMoveAtrribute: PieceTypePropertyAttribute
+	public class DynamicMoveAttribute: PieceTypePropertyAttribute
 	{
 		public override void AddRules( PieceType pieceType, Game game )
 		{

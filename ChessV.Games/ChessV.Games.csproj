@@ -98,6 +98,7 @@
     <Compile Include="12x12\OmegaChess.cs" />
     <Compile Include="12x8\CourierChessModerno.cs" />
     <Compile Include="12x8\KingsCourt.cs" />
+    <Compile Include="16x16\GACoarbB.cs" />
     <Compile Include="16x16\CoarbB.cs" />
     <Compile Include="8x8\BerolinaChess.cs" />
     <Compile Include="8x8\DemiChessWithDifferentArmies.cs" />

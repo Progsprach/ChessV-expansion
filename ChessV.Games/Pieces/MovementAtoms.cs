@@ -168,6 +168,26 @@ namespace ChessV.Games
 	}
 	#endregion
 
+	#region Trifil
+	[PieceType("Trifil", "Movement Atoms")]
+	public class Trifil : PieceType
+	{
+		public Trifil(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Trifil", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.Step(new Direction(3, 3));
+			type.Step(new Direction(3, -3));
+			type.Step(new Direction(-3, 3));
+			type.Step(new Direction(-3, -3));
+		}
+	}
+	#endregion
+
 	#region Nightrider
 	[PieceType("Nightrider", "Movement Atoms")]
 	public class Nightrider: PieceType
@@ -192,6 +212,30 @@ namespace ChessV.Games
 			type.Slide( new Direction( -2, -1 ) );
 			type.Slide( new Direction( -2, 1 ) );
 			type.Slide( new Direction( -1, 2 ) );
+		}
+	}
+	#endregion
+
+	#region Dabbabahrider
+	[PieceType("Dabbabahrider", "Movement Atoms")]
+	public class Dabbabahrider : PieceType
+	{
+		public Dabbabahrider(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Dabbabahrider", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+
+			//	Customize piece-square-tables for the Knightrider
+		//	PSTMidgameInSmallCenter = 12;
+		//	PSTMidgameInLargeCenter = 9;
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.Slide(new Direction(2,0));
+			type.Slide(new Direction(0,2));
+			type.Slide(new Direction(-2,0));
+			type.Slide(new Direction(0,-2));
 		}
 	}
 	#endregion
