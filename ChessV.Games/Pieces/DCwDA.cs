@@ -69,7 +69,7 @@ namespace ChessV.Games
 		public static new void AddMoves(PieceType type)
 		{
 			type.Step(new Direction(-1, -1));
-			type.Step(new Direction(-1, -1));
+			type.Step(new Direction(-1, 1));
 			type.Step(new Direction(2,-2));
 			type.Step(new Direction(2, 2));
 		}

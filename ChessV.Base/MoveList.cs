@@ -31,7 +31,7 @@ namespace ChessV
 
 		public Game Game { get; private set; }
 
-		public const int MAX_MOVES = 256;
+		public const int MAX_MOVES = 512;
 
 		public bool LegalMovesOnly { get; set; }
 

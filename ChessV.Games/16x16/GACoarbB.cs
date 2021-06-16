@@ -31,12 +31,15 @@ namespace ChessV.Games
 	{
 		// *** PIECE TYPES *** //
 
-		public PieceType Chancellor;
 		public PieceType Archbishop;
 		public PieceType Rose;
-		public PieceType FerzDabbabah;
-		public PieceType ElephantGeneral;
 		public PieceType CamelZebraKnight;
+		public PieceType CrookedBishop;
+		public PieceType Nightrider;
+		public PieceType WazirDabbabahrider;
+		public PieceType Duck;
+		public PieceType Gryphon;
+
 		// *** CONSTRUCTION *** //
 
 		public GACoarbB():
@@ -52,7 +55,7 @@ namespace ChessV.Games
 		public override void SetGameVariables()
 		{
 			base.SetGameVariables();
-			Array = "rndwboaqkcjbwdnr/pppppppppppppppp/16/16/16/16/16/16/16/16/16/16/16/16/PPPPPPPPPPPPPPPP/RNDWBOAQKCJBWDNR";
+			Array = "wosjiahgkhaijsow/pppppppppppppppp/16/16/16/16/16/16/16/16/16/16/16/16/PPPPPPPPPPPPPPPP/WOSJIAHGKHAIJSOW";
 			Castling.Value = "6-6";
 			PromotionRule.Value = "Standard";
 			PawnMultipleMove.Value = "@2(2,3,4,5,6)";
@@ -66,12 +69,16 @@ namespace ChessV.Games
 		{
 			base.AddPieceTypes();
 			AddChessPieceTypes();
-			AddPieceType( Chancellor = new Chancellor( "Chancellor", "C", 1050, 1100, "Chancellor" ) );
-			AddPieceType( Archbishop = new Archbishop( "Archbishop", "A", 850, 900, "Archbishop" ) );
-			AddPieceType( Rose = new Rose("Rose", "O", 850, 850,"General"));
-			AddPieceType(FerzDabbabah = new FerzDabbabah("Squire", "D", 250, 250,"Dabbabah"));
-			AddPieceType(ElephantGeneral = new ElephantGeneral("Guardian", "W", 450, 450,"Jumping General"));
+			AddPieceType( Archbishop = new Archbishop( "Archbishop", "A", 800, 850, "Archbishop" ) );
+			AddPieceType( Rose = new Rose("Rose", "O", 600, 600,"General"));
 			AddPieceType(CamelZebraKnight = new CamelZebraKnight("Chevalier", "J", 800, 800,"Unicorn"));
+			AddPieceType(CrookedBishop = new CrookedBishop("Scout", "S", 400, 400,"BishopDebbabah"));
+			AddPieceType(Nightrider = new Nightrider("Nightrider", "I", 600, 600,"Nightrider"));
+			AddPieceType(WazirDabbabahrider = new WazirDabbabahrider("Tower","W", 400, 400,"VerticalMover"));
+			AddPieceType(Duck = new Duck("Duck", "H", 600, 600,"Bird"));
+			AddPieceType(Gryphon = new Gryphon("Gryphon", "G", 800, 850,"Lion"));
+
+
 
 		}
 		#endregion
@@ -81,6 +88,8 @@ namespace ChessV.Games
 		{
 			base.AddRules();
 			AddRule(new ChessV.Games.Rules.DynamicIsSquareAttacked(Rose));
+			AddRule(new ChessV.Games.Rules.DynamicIsSquareAttacked(CrookedBishop));
+			AddRule(new ChessV.Games.Rules.DynamicIsSquareAttacked(Gryphon));
 		}
 		#endregion
 
@@ -92,7 +101,7 @@ namespace ChessV.Games
 			//	Customize the development evaluation function
 			Evaluations.DevelopmentEvaluation eval = (Evaluations.DevelopmentEvaluation) 
 				FindEvaluation( typeof(Evaluations.DevelopmentEvaluation) );
-			eval.HeavyPieceThreshold = 600;
+			eval.HeavyPieceThreshold = 700;
 		}
 		#endregion
 	}
