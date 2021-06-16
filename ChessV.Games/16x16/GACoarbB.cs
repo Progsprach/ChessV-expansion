@@ -68,7 +68,6 @@ namespace ChessV.Games
 		public override void AddPieceTypes()
 		{
 			base.AddPieceTypes();
-			AddChessPieceTypes();
 			AddPieceType( Archbishop = new Archbishop( "Archbishop", "A", 800, 850, "Archbishop" ) );
 			AddPieceType( Rose = new Rose("Rose", "O", 600, 600,"General"));
 			AddPieceType(CamelZebraKnight = new CamelZebraKnight("Chevalier", "J", 800, 800,"Unicorn"));

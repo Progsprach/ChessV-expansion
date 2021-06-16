@@ -127,5 +127,147 @@ namespace ChessV.Games
 			Elephant.AddMoves(type);
 		}
 	}
+    #endregion
+    #region Forward Short Rook
+    [PieceType("Forward Short Rook", "DemiChess with Different Armies")]
+	public class ForwardShortRook : PieceType
+	{
+		public ForwardShortRook(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Forward Short Rook", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.Slide(new Direction(1, 0), 3);
+			type.Step(new Direction(0, 1));
+			type.Step(new Direction(0, -1));
+			type.Step(new Direction(-1, 0));
+		}
+	}
+
 	#endregion
+	#region Triangle
+	[PieceType("Triangle", "DemiChess with Different Armies")]
+	public class Triangle : PieceType
+	{
+		public Triangle(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Triangle", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.Step(new Direction(2, 0));
+			type.Step(new Direction(-1, -1));
+			type.Step(new Direction(-1, 1));
+		}
+	}
+	#endregion
+	#region Stepping Crab
+	[PieceType("Stepping Crab", "DemiChess with Different Armies")]
+	public class SteppingCrab : PieceType
+	{
+		public SteppingCrab(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Stepping Crab", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.Step(new Direction(2, 1));
+			type.Step(new Direction(2, -1));
+			type.Step(new Direction(0, 1));
+			type.Step(new Direction(0, -1));
+			type.Step(new Direction(-1, 0));
+		}
+	}
+
+	#endregion
+	#region Standin Queen
+	[PieceType("Standin Queen", "DemiChess with Different Armies")]
+	public class StandinQueen : PieceType
+	{
+		public StandinQueen(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Standin Queen", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.Step(new Direction(2, 0));
+			type.Step(new Direction(1, 0));
+			type.Step(new Direction(-1, -1));
+			type.Step(new Direction(-1, 1));
+			type.Step(new Direction(2, 1));
+			type.Step(new Direction(2, -1));
+			type.Step(new Direction(0, 1));
+			type.Step(new Direction(0, -1));
+			type.Step(new Direction(-1, 0));
+			MoveCapability move3 = new MoveCapability(new Direction(1, 0), 3, 3);
+			type.AddMoveCapability(move3);		
+		}
+	}
+
+
+	#endregion
+	#region Lurching Alfil
+	[PieceType("Lurching Alfil", "DemiChess with Different Armies")]
+	public class LurchingAlfil : PieceType
+	{
+		public LurchingAlfil(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Lurching Alfil", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			LameAlfil.AddMoves(type);
+			type.Step(new Direction(-1, 0));
+		}
+	}
+	#endregion
+	#region Lurching Dabbabah
+	[PieceType("Lurching Dabbabah", "DemiChess with Different Armies")]
+	public class LurchingDabbabah : PieceType
+	{
+		public LurchingDabbabah(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Lurching Dabbabah", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			LameDabbabah.AddMoves(type);
+			type.Step(new Direction(-1, 1));
+			type.Step(new Direction(-1, -1));
+		}
+	}
+	#endregion
+	#region Master Lurcher
+	[PieceType("Master Lurcher", "DemiChess with Different Armies")]
+	public class MasterLurcher : PieceType
+	{
+		public MasterLurcher(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Master Lurcher", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			LameDabbabah.AddMoves(type);
+			LameAlfil.AddMoves(type);
+			LameKnight.AddMoves(type);
+		}
+	}
+	#endregion
+
+
 }

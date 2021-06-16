@@ -18,6 +18,7 @@ some reason you need a copy, please visit <http://www.gnu.org/licenses/>.
 
 ****************************************************************************/
 
+using System.Collections.Generic;
 namespace ChessV.Games
 {
 	#region Wazir
@@ -225,9 +226,6 @@ namespace ChessV.Games
 		{
 			AddMoves(this);
 
-			//	Customize piece-square-tables for the Knightrider
-		//	PSTMidgameInSmallCenter = 12;
-		//	PSTMidgameInLargeCenter = 9;
 		}
 
 		public static new void AddMoves(PieceType type)
@@ -239,4 +237,119 @@ namespace ChessV.Games
 		}
 	}
 	#endregion
+
+	#region Lame Dabbabah
+	[PieceType("Lame Dabbabah", "Movement Atoms")]
+	public class LameDabbabah : PieceType
+	{
+		public LameDabbabah(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Lame Dabbabah", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+
+			type.AddMoveCapability(MoveCapability.Step(new Direction(2, 0)).AddPath(new List<Direction>() { new Direction(1, 0), new Direction(1, 0) }));
+			type.AddMoveCapability(MoveCapability.Step(new Direction(0, 2)).AddPath(new List<Direction>() { new Direction(0, 1), new Direction(0, 1) }));
+			type.AddMoveCapability(MoveCapability.Step(new Direction(-2, 0)).AddPath(new List<Direction>() { new Direction(-1, 0), new Direction(-1, 0) }));
+			type.AddMoveCapability(MoveCapability.Step(new Direction(0, -2)).AddPath(new List<Direction>() { new Direction(0, -1), new Direction(0, -1) }));
+		}
+	}
+	#endregion
+
+	#region Lame Alfil
+	[PieceType("Lame Alfil", "Movement Atoms")]
+	public class LameAlfil : PieceType
+	{
+		public LameAlfil(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Lame Alfil", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.AddMoveCapability(MoveCapability.Step(new Direction(2, 2)).AddPath(new List<Direction>() { new Direction(1, 1), new Direction(1, 1) }));
+			type.AddMoveCapability(MoveCapability.Step(new Direction(-2, 2)).AddPath(new List<Direction>() { new Direction(-1, 1), new Direction(-1, 1) }));
+			type.AddMoveCapability(MoveCapability.Step(new Direction(-2, -2)).AddPath(new List<Direction>() { new Direction(-1, -1), new Direction(-1, -1) }));
+			type.AddMoveCapability(MoveCapability.Step(new Direction(2, -2)).AddPath(new List<Direction>() { new Direction(1, -1), new Direction(1, -1) }));
+		}
+	}
+	#endregion
+
+	#region Lame Knight
+	[PieceType("Lame Knight", "Movement Atoms")]
+	public class LameKnight : PieceType
+	{
+		public LameKnight(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Lame Knight", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			MoveCapability move = MoveCapability.Step(new Direction(2, 1));
+			MovePathInfo movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(1, 1), new Direction(1, 0)});
+			movePath.AddPath(new List<Direction>() { new Direction(1, 0), new Direction(1, 1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+
+			move = MoveCapability.Step(new Direction(2, -1));
+			movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(1, -1), new Direction(1, 0) });
+			movePath.AddPath(new List<Direction>() { new Direction(1, 0), new Direction(1, -1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+
+			move = MoveCapability.Step(new Direction(1, -2));
+			movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(1, -1), new Direction(0, -1) });
+			movePath.AddPath(new List<Direction>() { new Direction(0, -1), new Direction(1, -1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+
+			move = MoveCapability.Step(new Direction(-1, -2));
+			movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(-1, -1), new Direction(0, -1) });
+			movePath.AddPath(new List<Direction>() { new Direction(0, -1), new Direction(-1, -1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+
+			move = MoveCapability.Step(new Direction(-2, -1));
+			movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(-1, -1), new Direction(-1, 0) });
+			movePath.AddPath(new List<Direction>() { new Direction(-1, 0), new Direction(-1, -1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+
+			move = MoveCapability.Step(new Direction(-2, 1));
+			movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(-1, 1), new Direction(-1, 0) });
+			movePath.AddPath(new List<Direction>() { new Direction(-1, 0), new Direction(-1, 1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+
+			move = MoveCapability.Step(new Direction(-1, 2));
+			movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(-1, 1), new Direction(0, 1) });
+			movePath.AddPath(new List<Direction>() { new Direction(0, 1), new Direction(-1, 1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+
+			move = MoveCapability.Step(new Direction(1, 2));
+			movePath = new MovePathInfo();
+			movePath.AddPath(new List<Direction>() { new Direction(1, 1), new Direction(0, 1) });
+			movePath.AddPath(new List<Direction>() { new Direction(0, 1), new Direction(1, 1) });
+			move.PathInfo = movePath;
+			type.AddMoveCapability(move);
+		}
+	}
+    #endregion
 }

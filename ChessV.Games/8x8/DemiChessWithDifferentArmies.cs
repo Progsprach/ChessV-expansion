@@ -25,24 +25,23 @@ namespace ChessV.Games
 {
 	[Game("Demi-Chess with Different Armies", typeof(Geometry.Rectangular), 8, 8, 
 		  InventedBy = "Ralph Betza",
-		  Invented = "2100",
+		  Invented = "1996",
 		  Tags = "Chess Variant,Different Armies")]
 	[Appearance(ColorScheme="Orchid")]
 	public class DemiChessWithDifferentArmies: Abstract.Generic8x8
 	{
 		// *** PIECE TYPES *** //
-		public PieceType Dabbabah;
 		//	Outdated Originals
 		public PieceType Snail;
 		public PieceType Crab;
 		public PieceType Lobster;
 		public PieceType CrabSnail;
 
-		//	Spurned Standins
-//		public PieceType ShortRook;
-//		public PieceType Tower;
-//		public PieceType Lion;
-//		public PieceType Chancellor;
+		//Spurned Standins
+		public PieceType ForwardShortRook;
+		public PieceType SteppingCrab;
+		public PieceType Triangle;
+		public PieceType StandinQueen;
 
 		//	Plain Pushovers
 		public PieceType Twofer;
@@ -50,7 +49,15 @@ namespace ChessV.Games
 		public PieceType Ferz;
 		public PieceType KnightElephant;
 
-		// Lame Leapers
+		// Lame Lurchers
+		public PieceType LameKnight;
+		public PieceType LurchingAlfil;
+		public PieceType LurchingDabbabah;
+		public PieceType MasterLurcher;
+
+		//Clunky Catastrophes
+
+
 
 
 		// *** GAME VARIABLES *** //
@@ -76,8 +83,8 @@ namespace ChessV.Games
 			base.SetGameVariables();
 			Array = "#{BlackArray}/8/8/8/8/#{WhiteArray}";
 			Castling.RemoveChoice( "Flexible" );
-			WhiteArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Plain Pushovers" } );
-			BlackArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Plain Pushovers" } );
+			WhiteArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Spurned Standins", "Plain Pushovers", "Lame Lurchers" } );
+			BlackArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Spurned Standins", "Plain Pushovers", "Lame Lurchers" } );
 			PawnDoubleMove = true;
 			EnPassant = true;
 		//	Castling.AddChoice( "CwDA", "Standard castling with the extra exception to prevent color-bound pieces from changing square colors" );
@@ -93,24 +100,41 @@ namespace ChessV.Games
 			//	Set BlackArmy array
 			if( BlackArmy.Value == "Outdated Originals" )
 				SetCustomProperty( "BlackArray", "sclxklcs/pppppppp" );
+			else if (BlackArmy.Value == "Spurned Standins")
+				SetCustomProperty("BlackArray", "rndokdnr/pppppppp");
 			else if( BlackArmy.Value == "Plain Pushovers" )
 				SetCustomProperty( "BlackArray", "twfakfwt/pppppppp" );
+			else if (BlackArmy.Value == "Lame Lurchers")
+				SetCustomProperty("BlackArray", "mbezkebm/pppppppp");
 			//	Set WhiteArmy array
-			if( WhiteArmy.Value == "Outdated Originals" )
+			if ( WhiteArmy.Value == "Outdated Originals" )
 				SetCustomProperty( "WhiteArray", "PPPPPPPP/SCLXKLCS" );
-			else if( WhiteArmy.Value == "Colorbound Clobberers" )
+			else if (WhiteArmy.Value == "Spurned Standins")
+				SetCustomProperty("WhiteArray", "PPPPPPPP/RNDOKDNR");
+			else if( WhiteArmy.Value == "Plain Pushovers" )
 				SetCustomProperty( "WhiteArray", "PPPPPPPP/TWFAKFWT" );
+			else if (WhiteArmy.Value == "Lame Lurchers")
+				SetCustomProperty("WhiteArray", "PPPPPPPP/MBEZKEBM");
 			//	Set pawn promotion types
 			PromotionTypes = "";
 			if( WhiteArmy.Value == "Outdated Originals")
 				PromotionTypes += "XSLC";
-			if( WhiteArmy.Value == "Plain Pushovers")
+			if (WhiteArmy.Value == "Spurned Standins")
+				PromotionTypes += "ORND";
+			if ( WhiteArmy.Value == "Plain Pushovers")
 				PromotionTypes += "ATFW";
-			if( BlackArmy.Value == "Outdated Originals" && WhiteArmy.Value != "Outdated Originals")
+			if (WhiteArmy.Value == "Lame Lurchers")
+				PromotionTypes += "ZMBE";
+			if ( BlackArmy.Value == "Outdated Originals" && WhiteArmy.Value != "Outdated Originals")
 				PromotionTypes += "xslc";
-			if( BlackArmy.Value == "Plain Pushovers" && WhiteArmy.Value != "Plain Pushovers")
+			if (BlackArmy.Value == "Spurned Standins" && WhiteArmy.Value != "Spurned Standins")
+				PromotionTypes += "ornd";
+			if ( BlackArmy.Value == "Plain Pushovers" && WhiteArmy.Value != "Plain Pushovers")
 				PromotionTypes += "atfw";
+			if (BlackArmy.Value == "Lame Lurchers" && WhiteArmy.Value != "Lame Lurchers")
+				PromotionTypes += "zmbe";
 		}
+
 		#endregion
 
 		#region AddPieceTypes
@@ -124,27 +148,56 @@ namespace ChessV.Games
 				AddPieceType( Lobster = new Lobster( "Lobster", BlackArmy.Value == "Outdated Originals" ? "L" : "L/l'", 150, 150, "Bird" ) );
 				AddPieceType( Crab = new Crab( "Crab", BlackArmy.Value == "Outdated Originals" ? "C" : "C/c'", 150, 150, "Zebra") );
 			}
-			if( WhiteArmy.Value == "Plain Pushovers" )
+
+			if (WhiteArmy.Value == "Spurned Standins")
+			{
+				AddPieceType(StandinQueen = new StandinQueen("Omni Standin", BlackArmy.Value == "Spurned Standins" ? "O" : "O/o'", 470, 470, "Amazon"));
+				AddPieceType(ForwardShortRook = new ForwardShortRook("Standin Snail", BlackArmy.Value == "Spurned Standins" ? "R" : "R/r'", 250, 250, "Charging Rook"));
+				AddPieceType(Triangle = new Triangle("Standin Lobster", BlackArmy.Value == "Spurned Standins" ? "D" : "D/d'", 120, 120, "Wizard"));
+				AddPieceType(SteppingCrab = new SteppingCrab("Standin Crab", BlackArmy.Value == "Spurned Standins" ? "N" : "N/n'", 170, 170, "NarrowKnight"));
+			}
+			if ( WhiteArmy.Value == "Plain Pushovers" )
 			{
 				AddPieceType( KnightElephant = new KnightElephant( "AlfilKnight", BlackArmy.Value == "Plain Pushovers" ? "A" : "A/a'", 450, 450, "ElephantKnight" ) );
 				AddPieceType( Twofer = new Twofer( "Twofer", BlackArmy.Value == "Plain Pushovers" ? "T" : "T/t'", 250, 250, "VerticalMover" ) );
 				AddPieceType( Ferz = new Ferz( "Ferz", BlackArmy.Value == "Plain Pushovers" ? "F" : "F/f'", 150, 150, "Ferz" ));
 				AddPieceType(Wazir = new Wazir("Wazir", BlackArmy.Value == "Plain Pushovers" ? "W" : "W/w'", 150, 150, "Wazir"));
             }
-			//	Black army
-			if( BlackArmy.Value == "Outdated Originals" && WhiteArmy.Value != "Outdated Originals")
+			if (WhiteArmy.Value == "Lame Lurchers")
 			{
-				AddPieceType( CrabSnail = new CrabSnail("CrabSnail", "X'/X", 450, 450, "KnightWazir" ) );
+				AddPieceType(MasterLurcher = new MasterLurcher("Lurching Has-been", BlackArmy.Value == "Lame Lurchers" ? "Z" : "Z/z'", 470, 470, "Minister"));
+				AddPieceType(LameKnight = new LameKnight("Lurching Knight", BlackArmy.Value == "Lame Lurchers" ? "M" : "M/m'", 260, 260, "KnightFerz"));
+				AddPieceType(LurchingDabbabah = new LurchingDabbabah("Lurching Dabbabah", BlackArmy.Value == "Lame Lurchers" ? "E" : "E/e'", 140, 140, "Dabbabah"));
+				AddPieceType(LurchingAlfil = new LurchingAlfil("Lurching Alfil", BlackArmy.Value == "Lame Lurchers" ? "B" : "B/b'", 140, 140, "Elephant"));
+			}
+			//	Black army
+			if ( BlackArmy.Value == "Outdated Originals" && WhiteArmy.Value != "Outdated Originals")
+			{
+				AddPieceType( CrabSnail = new CrabSnail("CrabSnail", "X'/x", 450, 450, "KnightWazir" ) );
 				AddPieceType( Snail = new Snail( "Snail", "S'/s", 250, 250, "WazirDabbabah" ) );
 				AddPieceType( Lobster = new Lobster( "Lobster", "L'/l", 150, 150, "Bird" ) );
 				AddPieceType( Crab = new Crab( "Crab", "C'/c", 150, 150, "Zebra" ) );
 			}
-			if( BlackArmy.Value == "Plain Pushovers" && WhiteArmy.Value != "Plain Pushovers")
+			if (BlackArmy.Value == "Spurned Standins" && WhiteArmy.Value != "Spurned Standins")
+			{
+				AddPieceType(StandinQueen = new StandinQueen("Omni Standin", "O'/o", 470, 470, "Amazon"));
+				AddPieceType(ForwardShortRook = new ForwardShortRook("Standin Snail", "R'/r", 250, 250, "Charging Rook"));
+				AddPieceType(Triangle = new Triangle("Standin Lobster", "D'/d", 120, 120, "Wizard"));
+				AddPieceType(SteppingCrab = new SteppingCrab("Standin Crab", "N'/n", 170, 170, "NarrowKnight"));
+			}
+			if ( BlackArmy.Value == "Plain Pushovers" && WhiteArmy.Value != "Plain Pushovers")
 			{
 				AddPieceType(KnightElephant = new KnightElephant( "AlfilKnight", "A'/a", 450, 450, "ElephantKnight" ) );
 				AddPieceType( Twofer = new Twofer( "Twofer", "T'/t", 250, 250, "VerticalMover" ) );
 				AddPieceType( Ferz= new Ferz( "Ferz", "F'/f", 150, 150, "Ferz" ) );
 				AddPieceType( Wazir = new Wazir( "Wazir", "W'/w", 150, 150, "Wazir" ) );
+			}
+			if (BlackArmy.Value == "Lame Lurchers" && WhiteArmy.Value != "Lame Lurchers")
+			{
+				AddPieceType(MasterLurcher = new MasterLurcher("Lurching Has-been", "Z'/z", 470, 470, "Minister"));
+				AddPieceType(LameKnight = new LameKnight("Lurching Knight", "M'/m", 260, 260, "KnightFerz")) ;
+				AddPieceType(LurchingDabbabah = new LurchingDabbabah("Lurching Dabbabah", "E'/e", 140, 140, "Dabbabah"));
+				AddPieceType(LurchingAlfil = new LurchingAlfil("Lurching Alfil", "B'/b", 140, 140, "Elephant"));
 			}
 		}
 		#endregion
@@ -165,13 +218,29 @@ namespace ChessV.Games
 				availablePromotionTypes.Add( Lobster );
 				availablePromotionTypes.Add( Crab );
 			}
-			if( WhiteArmy.Value == "Plain Pushovers" || BlackArmy.Value == "Plain Pushovers")
+
+			if (WhiteArmy.Value == "Spurned Standins" || BlackArmy.Value == "Spurned Standins")
+			{
+				availablePromotionTypes.Add(StandinQueen);
+				availablePromotionTypes.Add(ForwardShortRook);
+				availablePromotionTypes.Add(SteppingCrab);
+				availablePromotionTypes.Add(Triangle);
+			}
+			if ( WhiteArmy.Value == "Plain Pushovers" || BlackArmy.Value == "Plain Pushovers")
 			{
 				availablePromotionTypes.Add( KnightElephant );
 				availablePromotionTypes.Add( Twofer );
 				availablePromotionTypes.Add( Ferz );
 				availablePromotionTypes.Add( Wazir );
 			}
+			if (WhiteArmy.Value == "Lame Lurchers" || BlackArmy.Value == "Lame Lurchers")
+			{
+				availablePromotionTypes.Add(MasterLurcher);
+				availablePromotionTypes.Add(LameKnight);
+				availablePromotionTypes.Add(LurchingAlfil);
+				availablePromotionTypes.Add(LurchingDabbabah);
+			}
+			
 			AddBasicPromotionRule( Pawn, availablePromotionTypes, loc => loc.Rank == 7 );
 			#endregion
 
@@ -210,14 +279,22 @@ namespace ChessV.Games
 			string xboardname = "";
 			if( WhiteArmy.Value == "Outdated Originals" )
 				xboardname = "originals~";
+			else if (WhiteArmy.Value == "Spurned Standins")
+				xboardname = "standins~";
 			else if( WhiteArmy.Value == "Plain Pushovers" )
 				xboardname = "pushovers~";
-			if( BlackArmy.Value == "Outdated Originals")
+			else if (WhiteArmy.Value == "Lame Lurchers")
+				xboardname = "lurchers~";
+			if ( BlackArmy.Value == "Outdated Originals")
 				xboardname += "originals~(cwda)";
+			else if (BlackArmy.Value == "Spurned Standins")
+				xboardname += "standins~(cwda)";
 			else if( BlackArmy.Value == "Plain Pushovers" )
 				xboardname += "pushovers~(cwda)";
+			else if (BlackArmy.Value == "Lame Lurchers")
+				xboardname += "lurchers~(cwda)";
 
-			if( config.SupportedVariants.Contains( xboardname ) )
+			if ( config.SupportedVariants.Contains( xboardname ) )
 				return new EngineGameAdaptor( xboardname );
 
 			return null;
