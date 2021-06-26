@@ -116,7 +116,7 @@ namespace ChessV.Games.Abstract
 		#region AddRules
 		public override void AddRules()
 		{
-			base.AddRules();
+		//	base.AddRules();
 			// *** PROMOTION *** //
 			if( PromotionRule.Value == "Standard" )
 			{
@@ -195,8 +195,10 @@ namespace ChessV.Games.Abstract
 			AddEvaluation( new DevelopmentEvaluation() );
 
 			//	Add evalation for low or insufficient material
-			AddEvaluation( new LowMaterialEvaluation() );
-
+			if (!BareKing)
+			{
+				AddEvaluation(new LowMaterialEvaluation());
+			}
 			//	Check for colorbound pieces
 			bool colorboundPieces = false;
 			for( int x = 0; x < nPieceTypes; x++ )

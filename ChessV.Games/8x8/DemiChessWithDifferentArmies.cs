@@ -24,8 +24,8 @@ using ChessV.Evaluations;
 namespace ChessV.Games
 {
 	[Game("Demi-Chess with Different Armies", typeof(Geometry.Rectangular), 8, 8, 
-		  InventedBy = "Ralph Betza",
-		  Invented = "1996",
+		  InventedBy = "Ralph Betza and Hendrik Heine",
+		  Invented = "2021",
 		  Tags = "Chess Variant,Different Armies")]
 	[Appearance(ColorScheme="Orchid")]
 	public class DemiChessWithDifferentArmies: Abstract.Generic8x8
@@ -50,13 +50,16 @@ namespace ChessV.Games
 		public PieceType KnightElephant;
 
 		// Lame Lurchers
-		public PieceType LameKnight;
+		public PieceType Mao;
 		public PieceType LurchingAlfil;
 		public PieceType LurchingDabbabah;
 		public PieceType MasterLurcher;
 
 		//Clunky Catastrophes
-
+		public PieceType ElephantTribbabah;
+		public PieceType Barc;
+		public PieceType ClunkyBishop;
+		public PieceType ShortRook;
 
 
 
@@ -83,8 +86,8 @@ namespace ChessV.Games
 			base.SetGameVariables();
 			Array = "#{BlackArray}/8/8/8/8/#{WhiteArray}";
 			Castling.RemoveChoice( "Flexible" );
-			WhiteArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Spurned Standins", "Plain Pushovers", "Lame Lurchers" } );
-			BlackArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Spurned Standins", "Plain Pushovers", "Lame Lurchers" } );
+			WhiteArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Spurned Standins", "Plain Pushovers", "Lame Lurchers", "Clunky Catastrophes" } );
+			BlackArmy = new ChoiceVariable( new string[] { "Outdated Originals", "Spurned Standins", "Plain Pushovers", "Lame Lurchers", "Clunky Catastrophes" } );
 			PawnDoubleMove = true;
 			EnPassant = true;
 		//	Castling.AddChoice( "CwDA", "Standard castling with the extra exception to prevent color-bound pieces from changing square colors" );
@@ -106,6 +109,8 @@ namespace ChessV.Games
 				SetCustomProperty( "BlackArray", "twfakfwt/pppppppp" );
 			else if (BlackArmy.Value == "Lame Lurchers")
 				SetCustomProperty("BlackArray", "mbezkebm/pppppppp");
+			else if (BlackArmy.Value == "Clunky Catastrophes")
+				SetCustomProperty("BlackArray", "jbcrkcbj/pppppppp");
 			//	Set WhiteArmy array
 			if ( WhiteArmy.Value == "Outdated Originals" )
 				SetCustomProperty( "WhiteArray", "PPPPPPPP/SCLXKLCS" );
@@ -115,6 +120,8 @@ namespace ChessV.Games
 				SetCustomProperty( "WhiteArray", "PPPPPPPP/TWFAKFWT" );
 			else if (WhiteArmy.Value == "Lame Lurchers")
 				SetCustomProperty("WhiteArray", "PPPPPPPP/MBEZKEBM");
+			else if (WhiteArmy.Value == "Clunky Catastrophes")
+				SetCustomProperty("WhiteArray", "PPPPPPPP/JBCRKCBJ");
 			//	Set pawn promotion types
 			PromotionTypes = "";
 			if( WhiteArmy.Value == "Outdated Originals")
@@ -125,6 +132,8 @@ namespace ChessV.Games
 				PromotionTypes += "ATFW";
 			if (WhiteArmy.Value == "Lame Lurchers")
 				PromotionTypes += "ZMBE";
+			if (WhiteArmy.Value == "Clunky Catastrophes")
+				PromotionTypes += "RJCB";
 			if ( BlackArmy.Value == "Outdated Originals" && WhiteArmy.Value != "Outdated Originals")
 				PromotionTypes += "xslc";
 			if (BlackArmy.Value == "Spurned Standins" && WhiteArmy.Value != "Spurned Standins")
@@ -133,6 +142,8 @@ namespace ChessV.Games
 				PromotionTypes += "atfw";
 			if (BlackArmy.Value == "Lame Lurchers" && WhiteArmy.Value != "Lame Lurchers")
 				PromotionTypes += "zmbe";
+			if (BlackArmy.Value == "Clunky Catastrophes" && WhiteArmy.Value != "Clunky Catastrophes")
+				PromotionTypes += "rjcb";
 		}
 
 		#endregion
@@ -143,61 +154,75 @@ namespace ChessV.Games
 			base.AddPieceTypes();			//	White army
 			if( WhiteArmy.Value == "Outdated Originals" )
 			{
-				AddPieceType( CrabSnail = new CrabSnail( "CrabSnail", BlackArmy.Value == "Outdated Originals" ? "X" : "X/x'", 450, 450, "KnightWazir" ) );
-				AddPieceType( Snail = new Snail( "Snail", BlackArmy.Value == "Outdated Originals" ? "S" : "S/s'", 250, 250, "WazirDabbabah" ) );
+				AddPieceType( CrabSnail = new CrabSnail( "CrabSnail", BlackArmy.Value == "Outdated Originals" ? "X" : "X/x'", 400, 400, "KnightWazir" ) );
+				AddPieceType( Snail = new Snail( "Snail", BlackArmy.Value == "Outdated Originals" ? "S" : "S/s'", 230, 230, "WazirDabbabah" ) );
 				AddPieceType( Lobster = new Lobster( "Lobster", BlackArmy.Value == "Outdated Originals" ? "L" : "L/l'", 150, 150, "Bird" ) );
 				AddPieceType( Crab = new Crab( "Crab", BlackArmy.Value == "Outdated Originals" ? "C" : "C/c'", 150, 150, "Zebra") );
 			}
 
 			if (WhiteArmy.Value == "Spurned Standins")
 			{
-				AddPieceType(StandinQueen = new StandinQueen("Omni Standin", BlackArmy.Value == "Spurned Standins" ? "O" : "O/o'", 470, 470, "Amazon"));
-				AddPieceType(ForwardShortRook = new ForwardShortRook("Standin Snail", BlackArmy.Value == "Spurned Standins" ? "R" : "R/r'", 250, 250, "Charging Rook"));
+				AddPieceType(StandinQueen = new StandinQueen("Omni Standin", BlackArmy.Value == "Spurned Standins" ? "O" : "O/o'", 410, 420, "Amazon"));
+				AddPieceType(ForwardShortRook = new ForwardShortRook("Standin Snail", BlackArmy.Value == "Spurned Standins" ? "R" : "R/r'", 240, 250, "Charging Rook"));
 				AddPieceType(Triangle = new Triangle("Standin Lobster", BlackArmy.Value == "Spurned Standins" ? "D" : "D/d'", 120, 120, "Wizard"));
 				AddPieceType(SteppingCrab = new SteppingCrab("Standin Crab", BlackArmy.Value == "Spurned Standins" ? "N" : "N/n'", 170, 170, "NarrowKnight"));
 			}
 			if ( WhiteArmy.Value == "Plain Pushovers" )
 			{
-				AddPieceType( KnightElephant = new KnightElephant( "AlfilKnight", BlackArmy.Value == "Plain Pushovers" ? "A" : "A/a'", 450, 450, "ElephantKnight" ) );
-				AddPieceType( Twofer = new Twofer( "Twofer", BlackArmy.Value == "Plain Pushovers" ? "T" : "T/t'", 250, 250, "VerticalMover" ) );
-				AddPieceType( Ferz = new Ferz( "Ferz", BlackArmy.Value == "Plain Pushovers" ? "F" : "F/f'", 150, 150, "Ferz" ));
-				AddPieceType(Wazir = new Wazir("Wazir", BlackArmy.Value == "Plain Pushovers" ? "W" : "W/w'", 150, 150, "Wazir"));
+				AddPieceType( KnightElephant = new KnightElephant( "AlfilKnight", BlackArmy.Value == "Plain Pushovers" ? "A" : "A/a'", 470, 470, "ElephantKnight" ) );
+				AddPieceType( Twofer = new Twofer( "Twofer", BlackArmy.Value == "Plain Pushovers" ? "T" : "T/t'", 240, 250, "VerticalMover" ) );
+				AddPieceType( Ferz = new Ferz( "Ferz", BlackArmy.Value == "Plain Pushovers" ? "F" : "F/f'", 140, 140, "Ferz" ));
+				AddPieceType(Wazir = new Wazir("Wazir", BlackArmy.Value == "Plain Pushovers" ? "W" : "W/w'", 140, 140, "Wazir"));
             }
 			if (WhiteArmy.Value == "Lame Lurchers")
 			{
-				AddPieceType(MasterLurcher = new MasterLurcher("Lurching Has-been", BlackArmy.Value == "Lame Lurchers" ? "Z" : "Z/z'", 470, 470, "Minister"));
-				AddPieceType(LameKnight = new LameKnight("Lurching Knight", BlackArmy.Value == "Lame Lurchers" ? "M" : "M/m'", 260, 260, "KnightFerz"));
+				AddPieceType(MasterLurcher = new MasterLurcher("Lurching Has-been", BlackArmy.Value == "Lame Lurchers" ? "Z" : "Z/z'", 450, 490, "Minister"));
+				AddPieceType(Mao = new Mao("Lurching Knight", BlackArmy.Value == "Lame Lurchers" ? "M" : "M/m'", 210, 230, "KnightFerz"));
 				AddPieceType(LurchingDabbabah = new LurchingDabbabah("Lurching Dabbabah", BlackArmy.Value == "Lame Lurchers" ? "E" : "E/e'", 140, 140, "Dabbabah"));
 				AddPieceType(LurchingAlfil = new LurchingAlfil("Lurching Alfil", BlackArmy.Value == "Lame Lurchers" ? "B" : "B/b'", 140, 140, "Elephant"));
+			}
+			if (WhiteArmy.Value == "Clunky Catastrophes")
+			{
+				AddPieceType(ShortRook = new ShortRook("Short Rook", BlackArmy.Value == "Clunky Catastrophes" ? "R" : "R/r'", 400, 430, "ShortRook"));
+				AddPieceType(ElephantTribbabah = new ElephantTribbabah("Clunky Jumper", BlackArmy.Value == "Clunky Catastrophes" ? "J" : "J/j'", 250, 250, "ElephantFerzDabbabah"));
+				AddPieceType(ClunkyBishop = new ClunkyBishop("Retreating Bishop", BlackArmy.Value == "Clunky Catastrophes" ? "C" : "C/c'", 180, 200, "DragonHorse"));
+				AddPieceType(Barc = new Barc("Barc", BlackArmy.Value == "Clunky Catastrophes" ? "B" : "B/b'", 130, 130, "KnightWazir"));
 			}
 			//	Black army
 			if ( BlackArmy.Value == "Outdated Originals" && WhiteArmy.Value != "Outdated Originals")
 			{
-				AddPieceType( CrabSnail = new CrabSnail("CrabSnail", "X'/x", 450, 450, "KnightWazir" ) );
-				AddPieceType( Snail = new Snail( "Snail", "S'/s", 250, 250, "WazirDabbabah" ) );
+				AddPieceType( CrabSnail = new CrabSnail("CrabSnail", "X'/x", 400, 400, "KnightWazir" ) );
+				AddPieceType( Snail = new Snail( "Snail", "S'/s", 230, 230, "WazirDabbabah" ) );
 				AddPieceType( Lobster = new Lobster( "Lobster", "L'/l", 150, 150, "Bird" ) );
 				AddPieceType( Crab = new Crab( "Crab", "C'/c", 150, 150, "Zebra" ) );
 			}
 			if (BlackArmy.Value == "Spurned Standins" && WhiteArmy.Value != "Spurned Standins")
 			{
-				AddPieceType(StandinQueen = new StandinQueen("Omni Standin", "O'/o", 470, 470, "Amazon"));
-				AddPieceType(ForwardShortRook = new ForwardShortRook("Standin Snail", "R'/r", 250, 250, "Charging Rook"));
+				AddPieceType(StandinQueen = new StandinQueen("Omni Standin", "O'/o", 410, 420, "Amazon"));
+				AddPieceType(ForwardShortRook = new ForwardShortRook("Standin Snail", "R'/r", 240, 250, "Charging Rook"));
 				AddPieceType(Triangle = new Triangle("Standin Lobster", "D'/d", 120, 120, "Wizard"));
 				AddPieceType(SteppingCrab = new SteppingCrab("Standin Crab", "N'/n", 170, 170, "NarrowKnight"));
 			}
 			if ( BlackArmy.Value == "Plain Pushovers" && WhiteArmy.Value != "Plain Pushovers")
 			{
-				AddPieceType(KnightElephant = new KnightElephant( "AlfilKnight", "A'/a", 450, 450, "ElephantKnight" ) );
-				AddPieceType( Twofer = new Twofer( "Twofer", "T'/t", 250, 250, "VerticalMover" ) );
-				AddPieceType( Ferz= new Ferz( "Ferz", "F'/f", 150, 150, "Ferz" ) );
-				AddPieceType( Wazir = new Wazir( "Wazir", "W'/w", 150, 150, "Wazir" ) );
+				AddPieceType(KnightElephant = new KnightElephant( "AlfilKnight", "A'/a", 470, 470, "ElephantKnight" ) );
+				AddPieceType( Twofer = new Twofer( "Twofer", "T'/t", 240, 250, "VerticalMover" ) );
+				AddPieceType( Ferz= new Ferz( "Ferz", "F'/f", 140, 140, "Ferz" ) );
+				AddPieceType( Wazir = new Wazir( "Wazir", "W'/w", 140, 140, "Wazir" ) );
 			}
 			if (BlackArmy.Value == "Lame Lurchers" && WhiteArmy.Value != "Lame Lurchers")
 			{
-				AddPieceType(MasterLurcher = new MasterLurcher("Lurching Has-been", "Z'/z", 470, 470, "Minister"));
-				AddPieceType(LameKnight = new LameKnight("Lurching Knight", "M'/m", 260, 260, "KnightFerz")) ;
+				AddPieceType(MasterLurcher = new MasterLurcher("Lurching Has-been", "Z'/z", 450, 490, "Minister"));
+				AddPieceType(Mao = new Mao("Lurching Knight", "M'/m", 210, 230, "KnightFerz")) ;
 				AddPieceType(LurchingDabbabah = new LurchingDabbabah("Lurching Dabbabah", "E'/e", 140, 140, "Dabbabah"));
 				AddPieceType(LurchingAlfil = new LurchingAlfil("Lurching Alfil", "B'/b", 140, 140, "Elephant"));
+			}
+			if (BlackArmy.Value == "Clunky Catastrophes" && WhiteArmy.Value != "Clunky Catastrophes")
+			{
+				AddPieceType(ShortRook = new ShortRook("Short Rook", "R'/r", 400, 430, "ShortRook"));
+				AddPieceType(ElephantTribbabah = new ElephantTribbabah("Clunky Jumper", "J'/j", 250, 250, "ElephantFerzDabbabah"));
+				AddPieceType(ClunkyBishop = new ClunkyBishop("Short Bishop", "C'/c", 180, 200, "DragonHorse"));
+				AddPieceType(Barc = new Barc("Barc", "B'/b", 130, 130, "KnightWazir"));
 			}
 		}
 		#endregion
@@ -236,11 +261,17 @@ namespace ChessV.Games
 			if (WhiteArmy.Value == "Lame Lurchers" || BlackArmy.Value == "Lame Lurchers")
 			{
 				availablePromotionTypes.Add(MasterLurcher);
-				availablePromotionTypes.Add(LameKnight);
+				availablePromotionTypes.Add(Mao);
 				availablePromotionTypes.Add(LurchingAlfil);
 				availablePromotionTypes.Add(LurchingDabbabah);
 			}
-			
+			if (WhiteArmy.Value == "Lame Lurchers" || BlackArmy.Value == "Lame Lurchers")
+			{
+				availablePromotionTypes.Add(ShortRook);
+				availablePromotionTypes.Add(ElephantTribbabah);
+				availablePromotionTypes.Add(ClunkyBishop);
+				availablePromotionTypes.Add(Barc);
+			}
 			AddBasicPromotionRule( Pawn, availablePromotionTypes, loc => loc.Rank == 7 );
 			#endregion
 
@@ -285,6 +316,8 @@ namespace ChessV.Games
 				xboardname = "pushovers~";
 			else if (WhiteArmy.Value == "Lame Lurchers")
 				xboardname = "lurchers~";
+			else if (WhiteArmy.Value == "Clunky Catastrophes")
+				xboardname = "catastrophes~";
 			if ( BlackArmy.Value == "Outdated Originals")
 				xboardname += "originals~(cwda)";
 			else if (BlackArmy.Value == "Spurned Standins")
@@ -293,6 +326,8 @@ namespace ChessV.Games
 				xboardname += "pushovers~(cwda)";
 			else if (BlackArmy.Value == "Lame Lurchers")
 				xboardname += "lurchers~(cwda)";
+			else if (BlackArmy.Value == "Clunky Catastrophes")
+				xboardname += "catastrophes~(cwda)";
 
 			if ( config.SupportedVariants.Contains( xboardname ) )
 				return new EngineGameAdaptor( xboardname );
@@ -301,8 +336,11 @@ namespace ChessV.Games
 		}
 		#endregion
 	}
-    #endregion
-    /*	[Game("CwDA: FIDEs vs. Clobberers", typeof( Geometry.Rectangular ), 8, 8,
+	#endregion
+	[Game("CwDA: Originals vs. Standins", typeof(Geometry.Rectangular), 8, 8,
+			  XBoardName = "originals~standins~(cwda)", Hidden = true,
+			  Definitions = "WhiteArmy=Outdated Originals;BlackArmy=Spurned Standins")]
+	/*	[Game("CwDA: FIDEs vs. Clobberers", typeof( Geometry.Rectangular ), 8, 8,
 			  XBoardName = "fide~clobberers~(cwda)", Hidden = true,
 			  Definitions = "WhiteArmy=Fabulous FIDEs;BlackArmy=Colorbound Clobberers")]
 		[Game("CwDA: Clobberers vs. FIDEs", typeof( Geometry.Rectangular ), 8, 8,
@@ -346,9 +384,9 @@ namespace ChessV.Games
 			  Definitions = "WhiteArmy=Colorbound Clobberers;BlackArmy=Colorbound Clobberers")]
 		[Game("CwDA: Nutters vs. Nutters", typeof( Geometry.Rectangular ), 8, 8,
 			  XBoardName = "nutters~nutters~(cwda)", Hidden = true,
-			  Definitions = "WhiteArmy=Nutty Knights;BlackArmy=Nutty Knights")]
+			  Definitions = "WhiteArmy=Nutty Knights;BlackArmy=Nutty Knights")] */
 		[Appearance(ColorScheme = "Orchid")]
-		public class CwDAXBoard: DemiChessWithDifferentArmies
+		public class DCwDAXBoard: DemiChessWithDifferentArmies
 		{
-		} */
+		} 
 }

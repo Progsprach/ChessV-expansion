@@ -199,8 +199,8 @@ namespace ChessV.Games
 
 		public static new void AddMoves(PieceType type)
 		{
-			type.Step(new Direction(2, 0));
-			type.Step(new Direction(1, 0));
+//			type.Step(new Direction(2, 0));
+//			type.Step(new Direction(1, 0));
 			type.Step(new Direction(-1, -1));
 			type.Step(new Direction(-1, 1));
 			type.Step(new Direction(2, 1));
@@ -208,8 +208,9 @@ namespace ChessV.Games
 			type.Step(new Direction(0, 1));
 			type.Step(new Direction(0, -1));
 			type.Step(new Direction(-1, 0));
-			MoveCapability move3 = new MoveCapability(new Direction(1, 0), 3, 3);
-			type.AddMoveCapability(move3);		
+			type.Slide(new Direction(1, 0), 3);
+//			MoveCapability move3 = new MoveCapability(new Direction(1, 0), 3, 3);
+//			type.AddMoveCapability(move3);		
 		}
 	}
 
@@ -254,6 +255,7 @@ namespace ChessV.Games
 	[PieceType("Master Lurcher", "DemiChess with Different Armies")]
 	public class MasterLurcher : PieceType
 	{
+
 		public MasterLurcher(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
 			base("Master Lurcher", name, notation, midgameValue, endgameValue, preferredImageName)
 		{
@@ -264,10 +266,63 @@ namespace ChessV.Games
 		{
 			LameDabbabah.AddMoves(type);
 			LameAlfil.AddMoves(type);
-			LameKnight.AddMoves(type);
+			Mao.AddMoves(type);
 		}
 	}
 	#endregion
+	#region Elephant Tribbabah
+	[PieceType("Elephant Tribbabah", "DemiChess with Different Armies")]
+	public class ElephantTribbabah : PieceType
+	{
+		public ElephantTribbabah(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Elephant Tribbabah", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
 
+		public static new void AddMoves(PieceType type)
+		{
+			Elephant.AddMoves(type);
+			Tribbabah.AddMoves(type);
+		}
+	}
+	#endregion
+	#region Barc
+	[PieceType("Barc", "DemiChess with Different Armies")]
+	public class Barc : PieceType
+	{
+		public Barc(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Barc", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
 
+		public static new void AddMoves(PieceType type)
+		{
+			type.Step(new Direction(-2, 1));
+			type.Step(new Direction(-2, -1));
+			type.Step(new Direction(1, -2));
+			type.Step(new Direction(1, 2));
+		}
+	}
+	#endregion
+	#region Clunky Bishop
+	[PieceType("Clunky Bishop", "DemiChess with Different Armies")]
+	public class ClunkyBishop : PieceType
+	{
+		public ClunkyBishop(string name, string notation, int midgameValue, int endgameValue, string preferredImageName = null) :
+			base("Clunky Bishop", name, notation, midgameValue, endgameValue, preferredImageName)
+		{
+			AddMoves(this);
+		}
+
+		public static new void AddMoves(PieceType type)
+		{
+			type.Slide(new Direction(-1, 1), 3);
+			type.Slide(new Direction(-1, -1), 3);
+			type.Step(new Direction(3,1));
+			type.Step(new Direction(3, -1));
+		}
+	}
+	#endregion
 }
